@@ -1,6 +1,6 @@
-from rest_framework import generics, filters
+from rest_framework import generics, filters ,viewsets, permissions
 from .models import Product, Category
-from .serializers import ProductListSerializer, ProductDetailSerializer, CategorySerializer
+from .serializers import ProductListSerializer, ProductDetailSerializer, CategorySerializer , ProductSerializer
 from django.shortcuts import get_object_or_404
 
 class CategoryListView(generics.ListAPIView):
@@ -45,3 +45,15 @@ class ProductsByCategoryView(generics.ListAPIView):
 
     def get_serializer_context(self):
         return {"request": self.request}
+
+
+class IsAdminOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return request.user and request.user.is_staff
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAdminOrReadOnly]

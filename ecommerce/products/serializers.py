@@ -25,7 +25,7 @@ class ProductDetailSerializer(ProductListSerializer):
     pass
 
 
-# Backwards-compatible name expected elsewhere in the codebase
-class ProductSerializer(ProductDetailSerializer):
-    """Alias for the detail serializer used by other apps (e.g., cart)."""
-    pass
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
