@@ -34,6 +34,16 @@ class ProductDetailView(generics.RetrieveAPIView):
         ctx.update({"request": self.request})
         return ctx
 
+class ProductDetailByIdView(generics.RetrieveAPIView):
+    queryset = Product.objects.select_related('category').all()
+    serializer_class = ProductDetailSerializer
+    lookup_field = 'id'
+
+    def get_serializer_context(self):
+        ctx = super().get_serializer_context()
+        ctx.update({"request": self.request})
+        return ctx
+
 # optional: products by category
 class ProductsByCategoryView(generics.ListAPIView):
     serializer_class = ProductListSerializer

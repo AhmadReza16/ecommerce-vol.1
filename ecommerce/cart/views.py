@@ -19,9 +19,16 @@ class AddToCartView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         product_id = request.data.get('product_id')
         quantity = int(request.data.get('quantity', 1))
+        
+        if not product_id:
+            return Response({"error": "Product ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
+        
         cart, created = Cart.objects.get_or_create(user=request.user)
-        product = Product.objects.get(id=product_id)
-
         cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
         cart_item.quantity += quantity
         cart_item.save()

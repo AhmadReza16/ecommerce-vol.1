@@ -76,8 +76,8 @@ class CreateStripeCheckoutSession(APIView):
                     },
                 ],
                 mode='payment',
-                success_url='http://localhost:3000/payment-success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url='http://localhost:3000/payment-cancel',
+                success_url=request.build_absolute_uri('/payment-success?session_id={CHECKOUT_SESSION_ID}'),
+                cancel_url=request.build_absolute_uri('/payment-cancel'),
             )
 
             return Response({'checkout_url': checkout_session.url})
