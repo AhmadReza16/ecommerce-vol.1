@@ -121,10 +121,10 @@ const ProductDetail = () => {
               </span>
               <div className="flex items-center space-x-2">
                 <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                  <Heart className="h-5 w-5 text-gray-600" />
+                  <Heart className="h-5 w-5 text-gray-600 hover:text-red-400" />
                 </button>
                 <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                  <Share2 className="h-5 w-5 text-gray-600" />
+                  <Share2 className="h-5 w-5 text-gray-500 hover:text-gray-700" />
                 </button>
               </div>
             </div>
@@ -154,12 +154,12 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 ">
               <button
                 onClick={handleAddToCart}
-                className="flex-1  btn-primary flex items-center justify-center space-x-2"
+                className="flex-1  btn-primary flex items-center justify-center space-x-2 border-gray-500 "
               >
-                <ShoppingCart className="h-5 w-5" />
+                <ShoppingCart className="h-5 w-5 " />
                 <span> Add to cart</span>
               </button>
               <button className="px-6 py-2 border bg-gray-100 border-primary-600 text-primary-600 rounded-lg hover:bg-gray-200 transition-colors">
